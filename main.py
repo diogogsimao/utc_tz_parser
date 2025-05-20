@@ -1,8 +1,8 @@
 from time_dataclass import TimeData
+from datetime import datetime, timezone, timedelta
 
-
-def test_time_data():
-    test_inputs = [
+def test_iso_data():
+    test_iso_inputs = [
         # Valid ISO 8601 with timezone offsets
         "2023-05-01T12:34:56-04:00",
         "2023-05-01T16:34:56Z",
@@ -28,12 +28,37 @@ def test_time_data():
         "2023-05-01T12:34Z",  # Missing seconds but with Z (allowed by some parsers)
     ]
 
-    for input_str in test_inputs:
+    for input_val in test_iso_inputs:
         try:
-            td = TimeData.from_input(input_str)
-            print(f"Parsed '{input_str}' -> UTC (ms): {td.utc_timestamp_ms}, offset (ms): {td.tz_offset_ms}")
+            td = TimeData.src_datetime(input_val)
+            print(f"Parsed {repr(input_val)} -> {td}")
         except Exception as e:
-            print(f"Failed to parse '{input_str}': {e}")
+            print(f"Failed to parse {repr(input_val)}: {e}")
+
+
+def test_datetime_data():
+    test_datetime_inputs = [
+        # Valid timezone-aware datetime objects
+        datetime(2023, 5, 1, 12, 34, 56, tzinfo=timezone(timedelta(hours=-4))),  # UTC-4
+        datetime(2023, 5, 1, 16, 34, 56, tzinfo=timezone.utc),  # UTC (Z)
+        datetime(2023, 12, 31, 23, 59, 59, tzinfo=timezone(timedelta(hours=9, minutes=30))),  # UTC+9:30
+        datetime(2023, 5, 1, 12, 34, 56, 789000, tzinfo=timezone(timedelta(hours=2))),  # fractional seconds with UTC+2
+        datetime(2020, 2, 29, 23, 59, 59, tzinfo=timezone(timedelta(hours=-7))),  # leap day valid UTC-7
+
+        # Edge and invalid cases
+        datetime(2023, 5, 1, 12, 34, 56),  # naive datetime (no tzinfo, should error)
+        datetime(2023, 5, 1, 16, 34),  # naive datetime without tzinfo
+        "not-a-datetime",  # completely wrong type
+        None,  # None input
+        1234567890,  # integer input
+    ]
+    for input_val in test_datetime_inputs:
+        try:
+            td = TimeData.src_datetime(input_val)
+            print(f"Parsed {repr(input_val)} -> {td}")
+        except Exception as e:
+            print(f"Failed to parse {repr(input_val)}: {e}")
 
 if __name__ == "__main__":
-    test_time_data()
+    test_iso_data()
+    test_datetime_data()
