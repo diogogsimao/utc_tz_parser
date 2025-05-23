@@ -59,6 +59,32 @@ def test_datetime_data():
         except Exception as e:
             print(f"Failed to parse {repr(input_val)}: {e}")
 
+def test_ms_data():
+    test_ms_offset_inputs = [
+        # Valid combinations
+        (1682952896000, -14400000),   # "2023-05-01T12:34:56-04:00"
+        (1682952896000, 0),           # Same timestamp, UTC (Z)
+        (1704047999000, 34200000),    # "2023-12-31T23:59:59+09:30"
+        (1682934896789, 7200000),     # fractional seconds, UTC+2
+        (1583039999000, -25200000),   # Leap day: "2020-02-29T23:59:59-07:00"
+
+        # Edge and invalid cases
+        (1682952896000, None),        # Invalid offset (None)
+        (None, 7200000),              # Invalid timestamp (None)
+        ("not-a-timestamp", 7200000), # Invalid timestamp type
+        (1682952896000, "offset"),    # Invalid offset type
+        (1682952896000, 15 * 60 * 60 * 1000),  # Offset too large (15h)
+        (-9999999999999999999999, 0),  # Extremely large negative timestamp
+    ]
+
+    for utc_ms, offset_ms in test_ms_offset_inputs:
+        try:
+            td = TimeData.src_ms(utc_ms, offset_ms)
+            print(f"Parsed (utc_ms={utc_ms}, offset_ms={offset_ms}) -> {td}")
+        except Exception as e:
+            print(f"Failed to parse (utc_ms={utc_ms}, offset_ms={offset_ms}): {e}")
+
 if __name__ == "__main__":
     test_iso_data()
     test_datetime_data()
+    test_ms_data()

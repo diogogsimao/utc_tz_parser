@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="991c917e-6293-44d9-a76e-39c8daabbfbf" name="Changes" comment="Added empty readme.md.">
+    <list default="true" id="991c917e-6293-44d9-a76e-39c8daabbfbf" name="Changes" comment="Added class method for millisecond information. Added test for 'datetime' python objects.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/time_dataclass.py" beforeDir="false" afterPath="$PROJECT_DIR$/time_dataclass.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747355134367</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added class method for millisecond information. Added test for 'datetime' python objects.">
+      <option name="closed" value="true" />
+      <created>1747784450528</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747784450528</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,6 +154,7 @@
     <MESSAGE value="first commit. dataclass skeleton." />
     <MESSAGE value="first commit. dataclass skeleton. takes in py's datetime or iso8601 time, constructs dataclass with some error detection." />
     <MESSAGE value="Added empty readme.md." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added empty readme.md." />
+    <MESSAGE value="Added class method for millisecond information. Added test for 'datetime' python objects." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added class method for millisecond information. Added test for 'datetime' python objects." />
   </component>
 </project>
