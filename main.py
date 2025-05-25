@@ -84,7 +84,66 @@ def test_ms_data():
         except Exception as e:
             print(f"Failed to parse (utc_ms={utc_ms}, offset_ms={offset_ms}): {e}")
 
+
+def test_add_data():
+    # Starting point: both methods should represent the same UTC time
+    test_dt = datetime(1992, 8, 14, 6, 0, 0, tzinfo=timezone(timedelta(hours=0)))  # 1992-08-14 06:00:00 UTC
+    test_ms_utc = 713772000000  # Equivalent UTC timestamp in ms
+    test_ms_offset = 0          # UTC offset in milliseconds
+
+    # Construct TimeData instances from datetime and from (ms + offset)
+    td_from_dt = TimeData.src_datetime(test_dt)
+    td_from_ms = TimeData.src_ms(test_ms_utc, test_ms_offset)
+
+    print(f"  From datetime: {td_from_dt}")
+    print(f"  From ms/offset: {td_from_ms}")
+
+    # Perform equivalent operations on both
+    td_from_dt.add_ms(1000)  # Add 1 second (1000 ms)
+    td_from_ms.add_timedelta(timedelta(milliseconds=1000))  # Add 1 second using timedelta
+
+    print(f"  From datetime after adding 1 second: {td_from_dt}")
+    print(f"  From ms/offset after adding 1 second: {td_from_ms}")
+
+    td_from_dt.add_ms(60000)  # Add 1 minute
+    td_from_ms.add_timedelta(timedelta(seconds=60))  # Add 1 minute
+
+    print(f"  From datetime after adding 1 minute: {td_from_dt}")
+    print(f"  From ms/offset after adding 1 minute: {td_from_ms}")
+
+    td_from_dt.add_timedelta(timedelta(hours=2, minutes=30))  # Add 2 hours 30 minutes
+    td_from_ms.add_ms(int(2.5 * 3600000))  # Add 2 hours 30 minutes in ms
+
+    print(f"  From datetime after adding 2 hours 30 minutes: {td_from_dt}")
+    print(f"  From ms/offset after adding 2 hours 30 minutes: {td_from_ms}")
+
+    td_from_dt.add_ms(-10000)  # Subtract 10 seconds
+    td_from_ms.add_timedelta(timedelta(seconds=-10))  # Subtract 10 seconds
+
+    print(f"  From datetime after subtracting 10 seconds: {td_from_dt}")
+    print(f"  From ms/offset after subtracting 10 seconds: {td_from_ms}")
+
+    td_from_dt.add_timedelta(timedelta(days=1, seconds=1))  # Add 1 day + 1 second
+    td_from_ms.add_ms(86400000 + 1000)  # Add equivalent in milliseconds
+
+    print(f"  From datetime after adding 1 day 1 second: {td_from_dt}")
+    print(f"  From ms/offset after adding 1 day 1 second: {td_from_ms}")
+
+    # Final assertion: both should be equal in all aspects
+    assert td_from_dt.utc_timestamp_ms == td_from_ms.utc_timestamp_ms, f"UTC ms mismatch: {td_from_dt.utc_timestamp_ms} != {td_from_ms.utc_timestamp_ms}"
+    assert td_from_dt.tz_offset_ms == td_from_ms.tz_offset_ms, f"Offset mismatch: {td_from_dt.tz_offset_ms} != {td_from_ms.tz_offset_ms}"
+    assert td_from_dt.iso_string == td_from_ms.iso_string, f"ISO string mismatch: {td_from_dt.iso_string} != {td_from_ms.iso_string}"
+
+    print(f"  From datetime after manipulation: {td_from_dt}")
+    print(f"  From ms/offset after manipulation: {td_from_ms}")
+
 if __name__ == "__main__":
-    test_iso_data()
-    test_datetime_data()
-    test_ms_data()
+
+    # Bulk test construct methods with several exceptions in the midst
+    # test_iso_data()
+    # test_datetime_data()
+    # test_ms_data()
+
+    # Bulk test addition and subtraction starting from different inputs
+    # All dates must be equal in the end
+    test_add_data()

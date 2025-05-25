@@ -121,60 +121,45 @@ class TimeData:
             dt_obj=localized_dt
         )
 
-    def add_ms(self, delta_ms: int) -> "TimeData":
+    def add_ms(self, delta_ms: int) -> None:
         """
-        Return a new TimeData instance with time adjusted by a given number of milliseconds.
+        Mutate this TimeData instance by adjusting time by a given number of milliseconds.
 
         Parameters:
             delta_ms (int): Milliseconds to add (or subtract if negative).
-
-        Returns:
-            TimeData: New instance with updated time values.
         """
         new_utc_ms = self.utc_timestamp_ms + delta_ms
 
-        # Convert UTC ms to UTC datetime
         try:
             utc_dt = datetime.fromtimestamp(new_utc_ms / 1000, tz=timezone.utc)
         except (OSError, OverflowError, ValueError) as e:
             raise ValueError(f"Resulting UTC timestamp is invalid: {new_utc_ms}. Error: {e}")
 
-        # Apply original timezone offset
         offset = timedelta(milliseconds=self.tz_offset_ms)
         local_dt = utc_dt.astimezone(timezone(offset))
         iso_str = local_dt.isoformat()
 
-        return TimeData(
-            iso_string=iso_str,
-            utc_timestamp_ms=new_utc_ms,
-            tz_offset_ms=self.tz_offset_ms,
-            dt_obj=local_dt
-        )
+        # Mutate the instance
+        self.utc_timestamp_ms = new_utc_ms
+        self.dt_obj = local_dt
+        self.iso_string = iso_str
 
-    def add_timedelta(self, delta: timedelta) -> "TimeData":
+    def add_timedelta(self, delta: timedelta) -> None:
         """
-        Return a new TimeData instance with time adjusted by a timedelta.
+        Mutate this TimeData instance by adjusting time by a timedelta.
 
         Parameters:
             delta (timedelta): The time difference to add or subtract.
-
-        Returns:
-            TimeData: New instance with updated time values.
         """
         if self.dt_obj is None:
             raise ValueError("Original datetime object is not available to adjust.")
 
-        # Shift the datetime
         new_dt = self.dt_obj + delta
-
-        # Convert to UTC and recalculate UTC timestamp
         utc_dt = new_dt.astimezone(timezone.utc)
         new_utc_ms = int(utc_dt.timestamp() * 1000)
         iso_str = new_dt.isoformat()
 
-        return TimeData(
-            iso_string=iso_str,
-            utc_timestamp_ms=new_utc_ms,
-            tz_offset_ms=self.tz_offset_ms,
-            dt_obj=new_dt
-        )
+        # Mutate the instance
+        self.dt_obj = new_dt
+        self.utc_timestamp_ms = new_utc_ms
+        self.iso_string = iso_str
