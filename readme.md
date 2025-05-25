@@ -18,6 +18,25 @@ pip install -r requirements-dev.txt
 ```
 
 ## Usage
+The TimeData class provides a flexible way to work with timezone-aware date and time data in Python. You can create an instance of TimeData using:
+
+ - An ISO 8601 string with timezone information (e.g., "2023-05-01T12:34:56-04:00")
+
+ - A timezone-aware datetime object
+
+ - A UTC timestamp in milliseconds combined with a timezone offset in milliseconds
+
+Construct methods ensure that the input is timezone-aware, which is essential for accurate time calculations.
+
+Once you have a TimeData instance, you can adjust the time by adding or subtracting durations either by:
+
+  - Adding an integer number of milliseconds (add_ms method).
+
+  - Adding a timedelta object (add_timedelta method).
+
+These mutation methods modify the original instance, updating the timestamp, datetime object and ISO string representation accordingly.
+
+You can also create copies of TimeData instances with the copy() method.
 ```
 from datetime import datetime, timezone, timedelta
 from time_dataclass import TimeData
