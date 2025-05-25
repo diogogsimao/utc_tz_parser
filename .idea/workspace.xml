@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="991c917e-6293-44d9-a76e-39c8daabbfbf" name="Changes" comment="Added test scripts and completed readme.md. main.py obsolete, TBD. Library in a usable state.">
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    <list default="true" id="991c917e-6293-44d9-a76e-39c8daabbfbf" name="Changes" comment="updated readme.md.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +155,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748176162300</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="corrected readme.md.">
+      <option name="closed" value="true" />
+      <created>1748176389978</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1748176389978</updated>
+    </task>
+    <task id="LOCAL-00012" summary="updated readme.md.">
+      <option name="closed" value="true" />
+      <created>1748176864143</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1748176864143</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +194,8 @@
     <MESSAGE value="Added class method for millisecond information. Added test for 'datetime' python objects." />
     <MESSAGE value="Added millisecond construct test and add/subtract class methods for time shifting." />
     <MESSAGE value="Added test scripts and completed readme.md. main.py obsolete, TBD. Library in a usable state." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test scripts and completed readme.md. main.py obsolete, TBD. Library in a usable state." />
+    <MESSAGE value="corrected readme.md." />
+    <MESSAGE value="updated readme.md." />
+    <option name="LAST_COMMIT_MESSAGE" value="updated readme.md." />
   </component>
 </project>

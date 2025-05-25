@@ -146,4 +146,33 @@ if __name__ == "__main__":
 
     # Bulk test addition and subtraction starting from different inputs
     # All dates must be equal in the end
-    test_add_data()
+    # test_add_data()
+
+
+    # USAGE code snippet from readme.md
+
+    # Create TimeData from ISO 8601 string with timezone info
+    td1 = TimeData.src_datetime("2023-05-01T12:34:56-04:00")
+    print(td1)
+    # TimeData(iso='2023-05-01T12:34:56-04:00', utc_ms=1682946896000, offset_ms=-14400000)
+
+    # Create TimeData from timezone-aware datetime object
+    dt = datetime(2023, 5, 1, 16, 34, 56, tzinfo=timezone.utc)
+    td2 = TimeData.src_datetime(dt)
+    print(td2)
+
+    # Create TimeData from UTC timestamp (ms) and timezone offset (ms)
+    td3 = TimeData.src_ms(1682946896000, -14400000)
+    print(td3)
+
+    # Mutate TimeData by adding milliseconds
+    td1.add_ms(60000)  # Add 1 minute (60000 ms)
+    print(td1)
+
+    # Mutate TimeData by adding a timedelta
+    td2.add_timedelta(timedelta(hours=2, minutes=30))
+    print(td2)
+
+    # Copy TimeData instance
+    td_copy = td3.copy()
+    print(td_copy)
